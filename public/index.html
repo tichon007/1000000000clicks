@@ -1,0 +1,336 @@
+<html>
+<head>
+   <meta name="description" content="This page will be clicked 1 000 000 000 times : This it's his reason for being. See in live others cliking, talk to them. Who will be the last clickers ??? "/>
+   <meta name="keywords" content="game,click,1000000000,contest,challenge,nodejs,iosocket"/>
+	<meta name="robots" content="index"/>
+ <title>1.000.000.000 click</title>
+  <script src="http://code.jquery.com/jquery-1.5.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="/stylesheets/foundation.min.css">
+  <link rel="stylesheet" href="/stylesheets/app.css">
+   <link rel="stylesheet" href="/stylesheets/style.css">
+  <!-- jgrow -->
+  <link rel="stylesheet" href="/stylesheets/jquery.jgrowl.css">
+  <script src="/javascripts/jquery.jgrowl.js"></script>
+  
+  <!-- -->
+  <script src="/javascripts/modernizr.foundation.js"></script>
+  <style media="screen" type="text/css">
+
+  .bodyBack{
+
+    
+  background:-webkit-gradient(linear, 81% 96%, 25% 98%, from(#F3F2F2), to(#FFFFFF));
+  }
+  
+.mainBorder
+{
+border:solid 0px #247bb5;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px 10px 12px 50px;
+        border-radius: 5px 10px 12px 50px;
+
+-webkit-box-shadow:  5px 50px 50px 8px rgba(1, 1, 1, 0.5);
+        
+        box-shadow:  5px 50px 50px 8px rgba(1, 1, 1, 0.5);
+box-shadow: 8px 50px 50px 8px rgba(1, 1, 1, 0.5);
+
+
+margin-top : 53px;
+
+
+background-image: linear-gradient(right bottom, rgb(0,145,171) 74%, rgb(27,174,206) 48%);
+background-image: -o-linear-gradient(right bottom, rgb(0,145,171) 74%, rgb(27,174,206) 48%);
+background-image: -moz-linear-gradient(right bottom, rgb(0,145,171) 74%, rgb(27,174,206) 48%);
+background-image: -webkit-linear-gradient(right bottom, rgb(0,145,171) 74%, rgb(27,174,206) 48%);
+background-image: -ms-linear-gradient(right bottom, rgb(0,145,171) 74%, rgb(27,174,206) 48%);
+
+background-image: -webkit-gradient(
+	linear,
+	right bottom,
+	left top,
+	color-stop(0.74, rgb(0,145,171)),
+	color-stop(0.48, rgb(27,174,206))
+);
+
+
+
+
+}
+
+
+
+
+.readmore {
+
+text-align: center;
+
+background: #2f2f2f;
+border-radius:8px;
+-moz-border-radius:8px;
+-webkit-border-radius:8px;
+box-shadow: 0px 3px 5px #000;
+-moz-box-shadow: 0px 3px 5px #000;
+-webkit-box-shadow: 0px 3px 5px #000;
+}
+.readmoreClicked {
+background: #2f2f2f;
+position:relative;
+top:3px;
+color: #fqq;
+box-shadow:none;
+-moz-box-shadow:none;
+-webkit-box-shadow:none;
+border-radius:8px;
+-moz-border-radius:8px;
+-webkit-border-radius:8px;
+}
+
+</style>
+
+
+  <script type="text/javascript">
+    $(document).ready(function () { 
+	var clickNbr =0;
+var socket = io.connect(); 
+
+socket.on('click', function (data) { 
+
+var obj = JSON.parse(data); 
+
+ $('#allClick').text('<h4>'+obj.click+'</h4>'); 
+}); 
+
+
+
+
+
+
+
+socket.on('message', function (data) { 
+var obj = JSON.parse(data); 
+if(obj.message) { 
+$.jGrowl(obj.msgTxt, { header: obj.message, life: 5000 });
+
+
+$('#message').text(obj.message); 
+} 
+else if(obj.click){
+ $('#allClick').text(obj.click); 
+
+}
+else if(obj.initClick)
+{
+ $('#allClick').text(obj.initClick);
+}
+
+else { 
+$('#clients').text(obj.clients); 
+} 
+}); 
+$('#poke').click(function() { 
+socket.send('{"pseudo" :"'+$('#pseudo').val()+'","messageIt":"'+$('#msgText').val()+'"}'); 
+$.jGrowl($('#msgText').val(), { header: $('#pseudo').val(), life: 5000 });
+}); 
+
+$('#clickIt').keypress(function (evt) {
+//Deterime where our character code is coming from within the event
+var charCode = evt.charCode || evt.keyCode;
+if (charCode  == 13 ) { //Enter key's keycode
+alert("Allez clique");
+return false;
+}
+if ( charCode  == 32) { //Enter key's keycode
+alert("Allez clique");
+return false;
+}
+});
+
+$('#clickIt').click(function() { 
+clickNbr++;
+socket.emit('clickIt');
+ $('#allClick').text( parseFloat($('#allClick').text()) +1);
+
+$('#textButtonId').text('You click '+clickNbr+' times');
+}); textButtonId
+
+
+
+
+
+$('#clickIt').mouseup(function() {$('#clickIt').removeClass(); $('#clickIt').addClass("readmore");$('#textButtonId').removeClass(); $('#textButtonId').addClass("textButton")});
+$('#clickIt').mousedown(function() { $('#clickIt').removeClass(); $('#clickIt').addClass("readmoreClicked");$('#textButtonId').removeClass(); $('#textButtonId').addClass("textButtonClicked")});
+
+
+
+
+
+
+
+
+
+
+$("div.panel_button").click(function(){
+		$("div#panel").animate({
+			height: "500px"
+		})
+		.animate({
+			height: "400px"
+		}, "fast");
+		$("div.panel_button").toggle();
+	$("#1000000000").css('color','white');
+	});	
+	
+   $("div#hide_button").click(function(){
+		$("div#panel").animate({
+			height: "0px"
+		}, "fast");
+		$("#1000000000").css('color','black');
+	
+   });	
+
+
+
+
+
+
+
+
+
+
+}); 
+
+
+
+
+
+  </script>
+</head>
+<body class="bodyBack">
+
+		   <div class="row">
+<div id="main" class="twelve columns ">
+<!-- Header -->
+ <div id="toppanel">
+    <div id="panel">
+      <div id="panel_contents"> 
+	  
+	  
+	  
+	  
+	   <div class="row">
+<div  class="twelve columns" style="color:white">
+
+<div  class="six columns"  style="padding-top:50px;">
+<div style="width:100%;border-style: solid;border-width: 5px;padding : 40px;background-color:red;-webkit-border-radius: 30px 0px 4px 4px;border-radius: 30px 0px 4px 4px;">
+This page aim is to reach the billions clicks !
+Using websocket technologie powered by node js your click are broadcasted to each clickers !
+</div>
+</div>
+<div  class="six columns "  style="padding-top:50px;">
+<div style="width:100%;border-style: solid;border-width: 5px;padding : 40px;background-color:green;-webkit-border-radius: 0px 30px 4px 4px;border-radius: 0px 30px 4px 4px;">
+You can also talk with other clicker ! By sending message every clickers all over the world will see your impression
+</div>
+</div>
+</div>
+</div>
+	   <div class="row">
+<div  class="twelve columns" style="color:white">
+<div  class="twelve columns" style="color:white;padding-top:50px;" >
+<div style="width:100%;border-style: solid;border-width: 5px;padding : 40px;background-color:blue;-webkit-border-radius: 30px 5px 4px 4px;border-radius: 30px 5px 4px 4px;">
+The 100.000.000 clicks team count on you to reach the billions 
+</div>
+
+
+
+
+</div>
+</div>
+</div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  </div>
+   
+       
+
+    </div>
+    <div class="panel_button" style="display: visible;"><img src="images/expand.png"  alt="expand"/> <a href="#">More Info</a> </div>
+    <div class="panel_button" id="hide_button" style="display: none;"><img src="images/collapse.png" alt="collapse" /> <a href="#">Hide</a> </div>
+  </div>	
+</div>
+</div>  
+		
+		
+	<!--Message display -->
+ 		<div id="test1" class="top-left"></div>	
+		
+		
+		
+		
+		
+		
+  
+   <div class="row mainBorder">
+<div id="main" class="twelve columns "></div>
+  
+  <div class="row">
+<div  class="twelve columns" style="text-align : center;"><h1 id="1000000000">1.000.000.000 Click page</h1></div>
+</div>
+
+ <div class="row" style="padding-top:30px">
+<div class="four columns"></div>
+<div class="three columns" style="text-align : center"><div><h4>Current click :</h4></div></div>
+<div class="two columns" style="text-align : center"><div id="allClick" style="font-size: 35px;text-align: justify;color: red;">0</div>
+</div>
+
+ <div class="row" style="padding-top:30px">
+<div class="twelve columns" style="text-align : center;"><img  style="opacity : 1" id="clickIt" class="readmore" width="300px" height="300px" src="/images/Button.png" alt="Click me !!!">
+<p id="textButtonId">You click 0 times</p></img></div>
+</div>
+
+  <div class="row" style="padding-top:30px">
+  <div class="two columns"></div>
+<div class="five columns" style="text-align : center;"><h3>Users currently clicking:</h3> </div>
+<div class="two columns" style="text-align : center;"><h2 id="clients"></h2></div>
+<div class="one columns"></div>
+</div>
+ <div class="row">
+	<div class="one columns"></div>
+		 <iframe src="http://www.facebook.com/plugins/like.php?href=http://1000000000clicks.com"
+				scrolling="no" frameborder="0"
+				style="border:none; width:450px; height:80px"></iframe>
+	</div>
+</div>
+</div>
+</div>
+<div class="row" style="margin-top:10px">
+<div class="twelve columns"><h4>Send a quick message to clickers :)</h4></div>
+</div>
+<div class="row" style="margin-top:0px">
+<div class="one columns" style="text-align:center">Pseudo</div>
+<div class="two columns"><input id="pseudo"></input></div>
+<div class="one columns" style="text-align:center">Message </div>
+<div class="two columns"><input id="msgText"></input></div>
+<div class="two columns">  <button id="poke" class="tiny button">Send msg !</button></div>
+<div class="one columns"> </div>
+</div>
+<div>
+
+ 
+
+	
+  </div>
+  
+</body>
+</html>
