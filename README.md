@@ -1,7 +1,9 @@
 1000000000clicks
 ================
 
-Simple site using jsnode + iosocket
+Simple site using jsnode + iosocket + fundation 
+User all over the world can click together to reach the 1.000.000.000 clik !!
+Message can be broadcast to each user 
 
 !!! Alpha version !!!
 
