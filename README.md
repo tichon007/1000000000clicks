@@ -16,3 +16,5 @@ af login ( wifi required )
 af update 1000000000click ( into the project folder )
 
 node.exe server.js
+
+Add mongoose comunication !!
