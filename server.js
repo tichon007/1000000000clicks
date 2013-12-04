@@ -1,6 +1,9 @@
 var app = require('express').createServer(), io = require('socket.io').listen(app), express = require('express'); 
 var fs = require("fs");
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://46.4.106.212/psm',function(err){if(err) throw err;});
 app.listen(8333); 
+
 
 app.get('/', function (req, res) { 
 res.sendfile(__dirname + '/public/index.html'); 
@@ -29,6 +32,11 @@ var allClients = 0;
 var totalClick = 0; 
 var clientId = 1; 
 
+var commentaireArticleSchema = new mongoose.Schema({
+  msgTxt : String,
+message : String
+});
+var CommentaireArticleModel = mongoose.model('commentaires', commentaireArticleSchema);
 io.sockets.on('connection', function (client) { 
 var my_timer; 
 var my_client = { 
@@ -58,6 +66,24 @@ console.log(obj.messageIt);
 my_client.obj.broadcast.send(JSON.stringify({ 
 "msgTxt": obj.messageIt ,"message":  obj.pseudo
 })); 
+
+var monCommentaire = new CommentaireArticleModel();
+monCommentaire.msgTxt = obj.pseudo;
+monCommentaire.message=obj.messageIt;
+
+// On le sauvegarde dans MongoDB !
+monCommentaire.save(function (err) {
+  if (err) { throw err; }
+  console.log('Commentaire ajouté avec succès !');
+  // On se déconnecte de MongoDB maintenant
+
+});
+
+
+
+
+
+
 });
 
 
